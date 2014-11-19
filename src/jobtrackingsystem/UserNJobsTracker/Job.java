@@ -8,12 +8,13 @@ package jobtrackingsystem.UserNJobsTracker;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import jobtrackingsystem.CRUD.CRUDJobs;
 
 /**
  *
  * @author KevinT
  */
-class Job {
+public class Job {
 
     String id;
     String description;
@@ -27,6 +28,7 @@ class Job {
         this.description = desc;
         this.due = due;
         this.assignedTo = assignedTo;
+        this.completed= false;
     }
 
     public String getId() {
@@ -54,15 +56,26 @@ class Job {
     }
 
     public void setDue(Date due) {
-        this.due= due;
+        this.due = due;
     }
 
     public void setAssignedTo(User user) {
-        this.assignedTo=user;
+        this.assignedTo = user;
+    }
+    public boolean getCompleted()
+    {
+        return this.completed;
+    }
+    
+    public void setCompleted()
+    {
+        this.completed=true;
     }
 
     public void insertJob(Job job) {
         jobs.add(job);
+        CRUDJobs crud = new CRUDJobs();
+        crud.insertJobs(job);
     }
 
     public Job[] findAllJobs() {
@@ -80,15 +93,25 @@ class Job {
     }
 
     public void updateJob(Job job) {
-        this = new Job();
+        CRUDJobs crud = new CRUDJobs();
+        crud.updateJobs(job);
     }
 
     public Job[] findAllJobAssignedTo(User user) {
+        int temp = user.getJobs().length;
+        Job[] jobs = user.getJobs();
+        return jobs;
+
     }
 
     public Job[] findAllCompletedJobs(User user) {
+        Job[] jobsCompletedByUser=user.jobsCompleted();
+        return jobsCompletedByUser;
     }
 
     public void deleteJob(Job job) {
+        jobs.remove(job);
+        CRUDJobs crud = new CRUDJobs();
+        crud.deleteJobs(job);
     }
 }

@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author KevinT
  */
-class User {
+public class User {
 
     String name;
     String emailAddress;
@@ -21,10 +21,27 @@ class User {
         this.name = name;
         this.emailAddress = emailAddresss;
     }
+    
+    public String getName()
+    {
+        return this.name = name;
+    }
+    public String getEmailAddress()
+    {
+        return this.emailAddress=emailAddress;
+    }
+    
+    public void setName(String name)
+    {
+        this.name=name;
+    }
+    public void setEmailAddress(String emailAddress)
+    {
+        this.emailAddress=emailAddress;
+    }
 
-    public String getJobs() {
-        String JobsId=new String();
-        Job[] jobses = new Job[jobs.size()];
+    public String getJobsID() {
+        String JobsId = new String();
         int i = 0;
         while (jobs.iterator().hasNext()) {
             JobsId = jobs.iterator().next().getDesc();
@@ -34,4 +51,33 @@ class User {
         return JobsId;
     }
 
+    public Job[] getJobs() {
+        Job[] jobses = new Job[jobs.size()];
+        int i = 0;
+        while (jobs.iterator().hasNext()) {
+            jobses[i] = jobs.iterator().next();
+        }
+        return jobses;
+    }
+
+    public void gotJobs(Job job) {
+        jobs.add(job);
+    }
+
+    public void completedAJob(Job job) {
+        job.setCompleted();
+    }
+
+    public Job[] jobsCompleted() {
+        int i = 0;
+        Job[] completedJobs = null;
+        while (jobs.iterator().hasNext()) {
+            if (jobs.iterator().next().getCompleted() == true) {
+                completedJobs[i] = jobs.iterator().next();
+            } else {
+            }
+            i++;
+        }
+        return completedJobs;
+    }
 }
